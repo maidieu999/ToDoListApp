@@ -6,14 +6,10 @@ class Control extends Component {
     render() {
         return(
             <div className="search_sort mt-15">
-                < Search onSearch = {this.props.onSearch}/>
-                < Sort 
-                    onSort={ this.props.onSort } 
-                    sortBy = { this.props.sortBy }
-                    sortValue = { this.props.sortValue }
-                />
+                < Search />
+                < Sort />
             </div>
         )
     }
 }
-export default Control ;
+export default Control ; 

@@ -1,23 +1,22 @@
 import React, { Component } from 'react';
-
+import { connect } from 'react-redux';
+import * as actions from './../actions/index';
 class TaskItem extends Component {
-    // constructor(props) {
-    //     super(props);
-    //     // this.state = {
-            
-    //     // }
-    // }
+
     onUpdateStatus = () => {
         this.props.onUpdateStatus(this.props.task.id)
     }
     onDeleteTask = () => {
-        this.props.onDeleteTask(this.props.task.id);
+        this.props.onDeleteTask(this.props.task.id); //dispatch action deleteTask
+        this.props.onCloseForm();
     }
-    onUpdate = () => {
-        this.props.onUpdate(this.props.task.id);
+    onEditTask = () => {
+        this.props.onOpenForm();
+        this.props.onEditTask(this.props.task);
     }
 
     render() {
+
         var { task, index } = this.props;
         return(
             <tr>
@@ -32,7 +31,7 @@ class TaskItem extends Component {
                 
                 </td>
                 <td className="text-center">
-                <button type="button" className="btn btn-warning" onClick = { this.onUpdate }>
+                <button type="button" className="btn btn-warning" onClick = { this.onEditTask }>
                     <span className="fa fa-pencil mr-5" />Sửa
                 </button>
                 &nbsp;
@@ -47,7 +46,31 @@ class TaskItem extends Component {
         )
     }
 }
-export default TaskItem ;
+const mapStateToProps = (state) => {
+    return {
+        isDisplayForm: state.isDisplayForm
+    }
+}
+const mapDispatchToProps = (dispatch, props) => {
+    return {
+        onUpdateStatus: (id) => {
+            dispatch(actions.updateStatus(id))
+        },
+        onDeleteTask: (id) => {
+            dispatch(actions.deleteTask(id))
+        },
+        onCloseForm: () => {
+            dispatch(actions.closeForm());
+        },
+        onOpenForm: () => {
+            dispatch(actions.openForm());
+        },
+        onEditTask: (task) => {
+            dispatch(actions.editTask(task));
+        }
+    }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(TaskItem) ;
 
 
 

@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import * as actions from './../actions/index';
 
 class Search extends Component {
     constructor(props) {
@@ -27,7 +29,7 @@ class Search extends Component {
                 <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                     <div className="input-group">
                         <input type="text" 
-                                className="form-control" 
+                                className="form-control"  
                                 placeholder="Nhập từ khóa..."
                                 value={ keyword }
                                 name="keyword"
@@ -44,4 +46,17 @@ class Search extends Component {
         )
     }
 }
-export default Search ;
+
+const mapStateToProps = (state) => {
+    return {
+
+    }
+}
+const mapDispatchToProps = (dispatch, props) => {
+    return {
+        onSearch: (keyword) => {
+            dispatch(actions.searchTask(keyword))
+        }
+    }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(Search);
